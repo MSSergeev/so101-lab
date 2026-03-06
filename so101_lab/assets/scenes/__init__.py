@@ -1,0 +1,5 @@
+"""Scene asset configurations."""
+
+from .workbench import WORKBENCH_CLEAN_CFG, WORKBENCH_TABLE_USD_PATH, GROUND_PLANE_CFG
+
+__all__ = ["WORKBENCH_CLEAN_CFG", "WORKBENCH_TABLE_USD_PATH", "GROUND_PLANE_CFG"]

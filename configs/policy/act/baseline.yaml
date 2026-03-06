@@ -1,0 +1,19 @@
+# ACT Policy hyperparameters (baseline)
+# Usage: python scripts/train/train_act.py --dataset ... --config configs/policy/act/baseline.yaml
+
+# Training
+steps: 60000
+batch_size: 24
+lr: 1e-5
+seed: 42
+
+# ACT architecture
+chunk_size: 25
+n_action_steps: 25
+kl_weight: 10.0  # Try 0.1-1.0 to avoid posterior collapse
+
+# Checkpointing
+checkpoint_interval: 5000
+best_check_interval: 1
+
+num_workers: 12

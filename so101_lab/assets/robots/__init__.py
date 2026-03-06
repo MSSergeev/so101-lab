@@ -1,0 +1,5 @@
+"""Robot asset configurations."""
+
+from .so101 import SO101_CFG, SO101_USD_JOINT_LIMITS, SO101_LEADER_MOTOR_LIMITS
+
+__all__ = ["SO101_CFG", "SO101_USD_JOINT_LIMITS", "SO101_LEADER_MOTOR_LIMITS"]

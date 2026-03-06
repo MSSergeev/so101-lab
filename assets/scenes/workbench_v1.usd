@@ -1,0 +1,224 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5, 0, 0)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (2.185056410110205, 2.7220758251126425, 3.120844193191268)
+                double3 target = (-2.0191213597190787, -3.2912798503973315, -1.4796386944505637)
+            }
+            dictionary Right = {
+                double3 position = (0, -5, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./workbench_v1.usd"
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    doc = "SO-101 workbench scene with table, lighting, and manipulation objects"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "World"
+{
+    def PhysicsScene "PhysicsScene" (
+        prepend apiSchemas = ["PhysxSceneAPI"]
+    )
+    {
+        bool physics:enableGPUDynamics = 1
+        vector3f physics:gravityDirection = (0, 0, -1)
+        float physics:gravityMagnitude = 9.81
+        int physics:numIterations = 8
+        int physics:numPositionIterations = 4
+        int physics:numThreads = 4
+        int physics:solverType = 1
+    }
+
+    def Xform "Table" (
+        prepend references = @../props/workbench.usd@
+    )
+    {
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Scope "Lighting"
+    {
+        def SphereLight "CeilingLamp"
+        {
+            float inputs:colorTemperature = 4000
+            float inputs:diffuse = 0.9
+            bool inputs:enableColorTemperature = 1
+            float inputs:exposure = 0
+            float inputs:intensity = 500000
+            float inputs:radius = 0.15
+            float inputs:specular = 1.2
+            bool inputs:treatAsPoint = 0
+            bool treatAsPoint = 0
+            token visibility = "inherited"
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0.8528647195348635, 1.1268072459168141, 2.559347791037744)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def RectLight "Window" (
+            prepend apiSchemas = ["ShapingAPI"]
+        )
+        {
+            float inputs:colorTemperature = 6500
+            float inputs:diffuse = 1
+            bool inputs:enableColorTemperature = 1
+            float inputs:exposure = 0
+            float inputs:height = 1.6
+            float inputs:intensity = 150000
+            bool inputs:normalize = 1
+            float inputs:shaping:cone:angle = 95.8
+            float inputs:shaping:cone:softness = 0.2
+            float inputs:shaping:focus = 0
+            color3f inputs:shaping:focusTint = (0, 0, 0)
+            float inputs:shaping:ies:angleScale = 0
+            float inputs:specular = 0.8
+            float inputs:width = 2
+            token visibility = "inherited"
+            bool visibleInPrimaryRay = 0
+            double3 xformOp:rotateXYZ = (-59.20000088214874, 0, 68.00000101327896)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (-1.9000000283122063, 2.1000000312924385, 2.7000000402331352)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def DomeLight "EnvironmentLight"
+        {
+            color3f inputs:color = (0.95, 0.97, 1)
+            float inputs:intensity = 500
+            token visibility = "invisible"
+        }
+    }
+
+    def Scope "Environment"
+    {
+        def Xform "GroundPlane" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            uniform token physics:approximation = "boundingCube"
+
+            def Cube "Collision"
+            {
+                uniform token purpose = "guide"
+                double size = 1
+                double3 xformOp:scale = (100, 100, 0.1)
+                double3 xformOp:translate = (0, 0, -0.05)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Mesh "Visual"
+            {
+                int[] faceVertexCounts = [4]
+                int[] faceVertexIndices = [0, 1, 2, 3]
+                point3f[] points = [(-2, -2, 0), (2, -2, 0), (2, 2, 0), (-2, 2, 0)]
+                color3f[] primvars:displayColor = [(0.3, 0.3, 0.3)]
+            }
+        }
+    }
+
+    def Scope "ManipulationObjects"
+    {
+        def Xform "Cylinder_1" (
+            prepend references = @../props/yellow_cylinder.usd@
+        )
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0.1, 0.1, 0.75)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Cube_1" (
+            prepend references = @../props/light_blue_cube.usd@
+        )
+        {
+            double3 xformOp:translate = (-0.1, 0.1, 0.75)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+}
+
+def "Render" (
+    hide_in_stage_window = true
+    no_delete = true
+)
+{
+    def "OmniverseKit"
+    {
+        def "HydraTextures" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            def RenderProduct "omni_kit_widget_viewport_ViewportTexture_0" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </OmniverseKit_Persp>
+                token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
+                token omni:rtx:background:source:type = "domeLight"
+                bool omni:rtx:dlss:frameGeneration = 0
+                bool omni:rtx:material:db:nonVisualMaterialCSV:enabled = 0
+                bool omni:rtx:material:db:syncLoads = 1
+                token omni:rtx:post:dlss:execMode = "performance"
+                bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
+                bool omni:rtx:post:registeredCompositing:invertToneMap = 1
+                bool omni:rtx:pt:lightcache:cached:dontResolveConflicts = 1
+                int omni:rtx:pt:maxSamplesPerLaunch = 2073600
+                int omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
+                bool omni:rtx:rt:demoire = 0
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
+                uint omni:rtx:viewTile:limit = 4294967295
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1280, 720)
+            }
+        }
+    }
+
+    def RenderSettings "OmniverseGlobalRenderSettings" (
+        prepend apiSchemas = ["OmniRtxSettingsGlobalRtAdvancedAPI_1", "OmniRtxSettingsGlobalPtAdvancedAPI_1"]
+        no_delete = true
+    )
+    {
+        rel products = </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>
+    }
+
+    def "Vars"
+    {
+        def RenderVar "LdrColor" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            uniform string sourceName = "LdrColor"
+        }
+    }
+}
+

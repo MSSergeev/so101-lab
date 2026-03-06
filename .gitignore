@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+.venv_*/
+
+# Project virtual environments (keep folder, ignore contents)
+venvs/*/
+!venvs/README.md
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Environments
+.env
+.env.local
+
+# Isaac Sim / USD (опционально - большие файлы)
+# *.usd
+# *.usda
+# *.usdc
+
+# Datasets (могут быть очень большими)
+data/recordings/
+data/lerobot/
+data/reference_images/
+data/*.npz
+datasets/
+*.hdf5
+*.h5
+*.parquet
+# Keep data collection code
+!so101_lab/data/
+
+# Model checkpoints and logs
+checkpoints/
+outputs/
+logs/
+runs/
+wandb/
+*.ckpt
+*.pth
+*.pt
+*.safetensors
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+CLAUDE.md
+.claude/
+assets/robots/so101/usd/so101.usda
+*.back
+
+# SO101Leader calibration cache
+so101_lab/devices/lerobot/.cache/*.json

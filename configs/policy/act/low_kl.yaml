@@ -1,0 +1,17 @@
+# ACT Policy with low KL weight (avoid posterior collapse)
+# Usage: python scripts/train/train_act.py --dataset ... --config configs/policy/act/low_kl.yaml
+
+# Training
+steps: 80000
+batch_size: 24
+lr: 1e-5
+seed: 42
+
+# ACT architecture
+chunk_size: 30
+n_action_steps: 30
+kl_weight: 1.0  # Low KL weight for more expressive latent space
+
+# Checkpointing
+checkpoint_interval: 5000
+best_check_interval: 100

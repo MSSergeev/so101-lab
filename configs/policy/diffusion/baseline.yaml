@@ -1,0 +1,17 @@
+# Diffusion Policy hyperparameters (baseline)
+steps: 50000
+batch_size: 16
+lr: 1e-4
+
+# Diffusion architecture
+horizon: 16
+n_obs_steps: 2
+n_action_steps: 8
+num_train_timesteps: 100
+num_inference_steps: 100  # can reduce for faster eval (10-20 DDIM)
+
+# Checkpointing
+checkpoint_interval: 5000
+best_check_interval: 100
+
+num_workers: 12

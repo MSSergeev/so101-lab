@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "so101-lab"
+version = "0.1.0"
+description = "SO-101 robot arm manipulation: sim environments, imitation learning, and RL in Isaac Lab"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["so101_lab*"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+hardware = [
+    "pyserial>=3.5",
+    "feetech-servo-sdk>=1.0.0",
+    "pygame>=2.5.0",
+    "deepdiff>=6.0.0",
+    "prettytable>=3.0.0",
+]

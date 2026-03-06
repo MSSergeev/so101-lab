@@ -1,0 +1,38 @@
+ik:
+  # IK backend: "dls" (DifferentialIKController) or "neural" (NeuralIK MLP)
+  method: "neural"
+  neural_ik_checkpoint: "outputs/neural_ik_3x512"  # required when method=neural
+  neural_ik_iters: 2                         # iterative refinement passes (1=single, 2=recommended)
+
+  # Heights (metres, env-local frame above table)
+  neutral_pos: [0.14, 0.00, 0.09]    # [x, y, z] in robot base frame (local); z = height above robot base Z (≈ table level)
+  approach_height: 0.07       # metres above cube center; same XY as grasp → DESCEND is pure descent
+  grasp_height: 0.005         # grasp level (offset along cube surface normal from cube center)
+  grasp_side_offset: 0.03   # offset along gripper local +X (gripper_frame_link is on +X finger)
+  slot_approach_height: 0.12  # above slot (TRANSIT)
+  slot_descent_height: 0.008  # depth into slot
+
+  # Waypoint interpolator (trapezoidal velocity in EE space)
+  max_ee_speed: 0.20          # m/s cruise speed (~3.3mm/step at 30Hz)
+  ee_accel: 0.70              # m/s² acceleration and deceleration
+
+  # State machine
+  position_threshold: 0.035   # 3D threshold for NEUTRAL/LIFT/TRANSIT/DESCEND_SLOT
+  approach_xy_threshold: 0.008  # XY-only threshold for APPROACH → DESCEND (prevents diagonal descent)
+  transition_z_threshold: 0.007  # Z threshold for DESCEND phase (prevents closing above cube)
+  phase_timeout_steps: 80     # max steps per phase
+  grasp_hold_steps: 25        # steps to hold gripper closed
+
+  # Gripper (radians): joint range (-0.174, +1.745) = (-10°, 100°)
+  # positive angle = open, negative = closed (per keyboard device convention)
+  gripper_open_rad: 0.68      # ~39° = fingers spread
+  gripper_closed_rad: -0.174  # -10° = fingers closed
+
+  # Waypoint noise for diversity
+  grasp_noise_xy_std: 0.002   # XY noise on APPROACH/DESCEND/GRASP targets (metres)
+  slot_noise_xy_std: 0.0      # XY noise on TRANSIT/DESCEND_SLOT targets; 0 = precise placement
+
+success:
+  xy_threshold: 0.030         # cube-to-slot XY distance (m)
+  z_tolerance: 0.003          # cube Z tolerance (m)
+  yaw_threshold_deg: 30.0     # cube-to-platform yaw error (°, with 90° symmetry)

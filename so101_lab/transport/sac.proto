@@ -1,0 +1,71 @@
+// gRPC service for SAC training: isaaclab-env client ↔ lerobot-env server.
+//
+// To regenerate Python stubs:
+//   python -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. so101_lab/transport/sac.proto
+
+syntax = "proto3";
+
+package sac_transport;
+
+service SACTraining {
+  // Lifecycle
+  rpc Ready(Empty) returns (Empty);
+  rpc Init(stream DataChunk) returns (InitResponse);
+
+  // Per env step
+  rpc SampleAction(stream DataChunk) returns (stream DataChunk);
+  rpc SendStepResult(stream DataChunk) returns (StepResultResponse);
+
+  // Training
+  rpc RunSACUpdate(stream DataChunk) returns (UpdateMetrics);
+
+  // Eval
+  rpc SetMode(ModeRequest) returns (Empty);
+  rpc SampleActionDeterministic(stream DataChunk) returns (stream DataChunk);
+
+  // Checkpoint
+  rpc SaveCheckpoint(stream DataChunk) returns (Empty);
+}
+
+enum TransferState {
+  TRANSFER_UNKNOWN = 0;
+  TRANSFER_BEGIN = 1;
+  TRANSFER_MIDDLE = 2;
+  TRANSFER_END = 3;
+}
+
+message DataChunk {
+  TransferState transfer_state = 1;
+  bytes data = 2;
+}
+
+message InitResponse {
+  int32 start_step = 1;
+  int32 start_episode = 2;
+  double best_sr = 3;
+}
+
+message StepResultResponse {
+  double reward = 1;
+  double classifier_pred = 2;
+  double vip_reward = 3;
+  bool bonus_given = 4;
+}
+
+message UpdateMetrics {
+  double loss_critic = 1;
+  double loss_actor = 2;
+  double loss_temperature = 3;
+  double temperature = 4;
+  double q_actor_mean = 5;
+  double entropy = 6;
+  double batch_reward_mean = 7;
+  double batch_reward_min = 8;
+  double batch_reward_max = 9;
+}
+
+message ModeRequest {
+  string mode = 1;
+}
+
+message Empty {}

@@ -1,0 +1,25 @@
+# Copyright (c) 2025, SO-101 Lab Project
+# Adapted from: leisaac (https://github.com/isaac-sim/IsaacLab)
+# Original license: BSD-3-Clause
+# Changes: Copied for SO-101 Lab project integration
+
+import platform
+import select
+import sys
+
+
+def enter_pressed() -> bool:
+    if platform.system() == "Windows":
+        import msvcrt
+
+        if msvcrt.kbhit():
+            key = msvcrt.getch()
+            return key in (b"\r", b"\n")  # enter key
+        return False
+    else:
+        return select.select([sys.stdin], [], [], 0)[0] and sys.stdin.readline().strip() == ""
+
+
+def move_cursor_up(lines):
+    """Move the cursor up by a specified number of lines."""
+    print(f"\033[{lines}A", end="")

@@ -1,0 +1,73 @@
+// gRPC service for PPO training: isaaclab-env client ↔ lerobot-env server.
+//
+// To regenerate Python stubs:
+//   python -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. so101_lab/transport/ppo.proto
+
+syntax = "proto3";
+
+package ppo_transport;
+
+service PPOTraining {
+  // Lifecycle
+  rpc Ready(Empty) returns (Empty);
+  rpc Init(stream DataChunk) returns (InitResponse);
+
+  // Per rollout step
+  rpc SampleAction(stream DataChunk) returns (ActionResult);
+  rpc SendStepResult(stream DataChunk) returns (Empty);
+
+  // After rollout
+  rpc RunPPOUpdate(stream DataChunk) returns (UpdateMetrics);
+
+  // Eval
+  rpc SetMode(ModeRequest) returns (Empty);
+  rpc SampleActionDeterministic(stream DataChunk) returns (ActionResult);
+  rpc ResetPolicy(Empty) returns (Empty);
+
+  // Checkpoint
+  rpc SaveCheckpoint(stream DataChunk) returns (Empty);
+}
+
+enum TransferState {
+  TRANSFER_UNKNOWN = 0;
+  TRANSFER_BEGIN = 1;
+  TRANSFER_MIDDLE = 2;
+  TRANSFER_END = 3;
+}
+
+message DataChunk {
+  TransferState transfer_state = 1;
+  bytes data = 2;
+}
+
+message ActionResult {
+  bytes action = 1;
+  double log_prob = 2;
+  double value = 3;
+}
+
+message UpdateMetrics {
+  double actor_loss = 1;
+  double value_loss = 2;
+  double ratio_mean = 3;
+  double ratio_std = 4;
+  double ratio_max = 5;
+  double ratio_min = 6;
+  double reward_mean = 7;
+  double reward_std = 8;
+  double advantage_mean = 9;
+  double log_prob_mean = 10;
+  double value_mean = 11;
+}
+
+message InitResponse {
+  int32 start_update = 1;
+  double best_sr = 2;
+  int32 ep_count = 3;
+}
+
+message ModeRequest {
+  string mode = 1;
+}
+
+message Empty {}

@@ -28,7 +28,11 @@ Current status: `so101_lab/rl/hil_input.py` and `hil_device.py` are stubs.
 
 ---
 
-## 3. 3DGS scenes for sim-to-real
+## 3. Reduce visual sim-to-real gap
 
-Replace procedural sim scenes with 3D Gaussian Splatting reconstructions of real workbench/environment. Goal: close the visual sim-to-real gap by training on photorealistic renders of the actual workspace. Requires capturing real scene with multi-view images, reconstructing 3DGS, and integrating as Isaac Lab scene background/environment.
+Two approaches to explore (simplest first):
+
+**3a. Digital twin via background replacement** — replace sim background with a real photo of the workspace using semantic segmentation (foreground = robot/objects, background = real photo). Inspired by leisaac's `ManagerBasedRLDigitalTwinEnv`. Effective for static top camera; limited for wrist camera due to changing perspective.
+
+**3b. 3DGS scenes** — replace procedural sim scenes with 3D Gaussian Splatting reconstructions of the real workbench. Requires capturing multi-view images, reconstructing 3DGS, and integrating as Isaac Lab scene background. Better quality but significantly more effort.
 

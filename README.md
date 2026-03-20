@@ -135,7 +135,9 @@ so101_lab/                  # Library
   transport/                #   gRPC for cross-venv communication (isaaclab ↔ lerobot)
   utils/                    #   Shared utilities
 
-scripts/                    # Runnable scripts (teleop, eval, train, tools, test)
+scripts/                    # Runnable scripts (teleop, eval, train, tools)
+tests/                      # Unit tests (pytest, no Isaac Sim)
+tests/sim/                  # Manual functional tests (require Isaac Sim)
 configs/                    # Policy training configs (YAML)
 docs/                       # Documentation
 ```

@@ -171,9 +171,9 @@ Then use `--vip-normalize` + `--demo-dataset` in SAC to compute scale from the p
 ```bash
 act-lerobot  # activate lerobot-env
 
-python scripts/tools/test_vip_reward.py
+python tests/sim/test_vip_reward.py
 
-python scripts/tools/test_vip_reward.py \
+python tests/sim/test_vip_reward.py \
     --goal-mode min --use-labeled \
     --goal-dataset data/recordings/figure_shape_placement_v4_labeled
 ```

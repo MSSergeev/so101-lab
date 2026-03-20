@@ -183,7 +183,7 @@ so101_lab/rl/
 ├── isaac_lab_gym_env.py   # IsaacLabGymEnv
 └── domain_rand.py         # apply_domain_rand_flags() — DR CLI flags for all RL scripts
 
-scripts/test/
+tests/sim/
 └── test_rl_gym_wrapper.py  # functional test (requires Isaac Sim)
 ```
 

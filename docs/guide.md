@@ -180,7 +180,7 @@ Checklist:
 2. Rename classes, update internal imports
 3. Adjust spawn params, thresholds, reward terms in `env_cfg.py`
 4. Register in `so101_lab/tasks/__init__.py` (BC + RL registries)
-5. Verify: `python scripts/eval/test_env_spawn.py --gui --env <new_task>`
+5. Verify: `python tests/sim/test_env_spawn.py --gui --env <new_task>`
 
 Details: [reference/env_design.md](reference/env_design.md). Full adaptation guide (new task, scene, camera, robot): [workflow/06_adapting.md](workflow/06_adapting.md).
 

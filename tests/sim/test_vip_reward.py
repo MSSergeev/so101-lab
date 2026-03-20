@@ -2,18 +2,18 @@
 
 Usage (Isaac Lab env):
     # Default: mean mode, final frames as goals
-    python scripts/tools/test_vip_reward.py
+    python tests/sim/test_vip_reward.py
 
     # Min distance mode
-    python scripts/tools/test_vip_reward.py --goal-mode min
+    python tests/sim/test_vip_reward.py --goal-mode min
 
     # Labels from labeled dataset, images from original (full-res)
-    python scripts/tools/test_vip_reward.py --use-labeled \
+    python tests/sim/test_vip_reward.py --use-labeled \
         --goal-dataset data/recordings/figure_shape_placement_v4 \
         --label-dataset data/recordings/figure_shape_placement_v4_labeled
 
     # Specific episodes, wrist camera
-    python scripts/tools/test_vip_reward.py --episodes 0 10 50 --camera observation.images.wrist
+    python tests/sim/test_vip_reward.py --episodes 0 10 50 --camera observation.images.wrist
 """
 
 import argparse

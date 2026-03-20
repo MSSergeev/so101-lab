@@ -103,7 +103,7 @@ from so101_lab.tasks.<new_task>.rl.env_cfg import NewTaskRLEnvCfg
 ### 6. Verify
 
 ```bash
-python scripts/eval/test_env_spawn.py --gui --env <new_task> --resets 20
+python tests/sim/test_env_spawn.py --gui --env <new_task> --resets 20
 ```
 
 Check that objects appear in the right zone and don't overlap.

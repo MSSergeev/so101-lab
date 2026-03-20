@@ -129,7 +129,7 @@ See [workflow/01_env_design.md](../workflow/01_env_design.md) for the full check
 3. Edit `rl/env_cfg.py`: same params for the RL variant
 4. Register in `tasks/__init__.py` (both `get_task_registry` and `_get_rl_task_registry`)
 5. Register gym ID in `tasks/<new_task>/rl/__init__.py`
-6. Verify: `python scripts/eval/test_env_spawn.py --gui --env <new_task>`
+6. Verify: `python tests/sim/test_env_spawn.py --gui --env <new_task>`
 
 Don't forget:
 - Success thresholds must match between BC env and RL env — they're defined separately in each `env_cfg.py`

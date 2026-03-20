@@ -48,7 +48,7 @@ All runnable scripts grouped by workflow stage. For a full table with venv and t
 
 ### Diagnostics
 
-**`scripts/eval/test_env_spawn.py`** — visual spawn zone verification. Runs N resets, prints cube and platform positions, holds GUI open. Use this after creating or modifying an env to check spawn zones look correct.
+**`tests/sim/test_env_spawn.py`** — visual spawn zone verification. Runs N resets, prints cube and platform positions, holds GUI open. Use this after creating or modifying an env to check spawn zones look correct.
 
 **`scripts/eval/analyze_classifier_distribution.py`** — plot classifier confidence histogram on a dataset. Useful for checking whether the classifier separates success/failure cleanly.
 
@@ -126,7 +126,7 @@ For SmolVLA BC training use `lerobot-train` directly (see [workflow/03_bc_traini
 
 **`scripts/tools/hil_viewer.py`** — camera viewer for HIL teleoperation sessions.
 
-**`scripts/tools/test_vip_reward.py`** — test VIP reward computation on a dataset: prints reward range, mean, and visualizes goal frames.
+**`tests/sim/test_vip_reward.py`** — test VIP reward computation on a dataset: prints reward range, mean, and visualizes goal frames.
 
 **`scripts/tools/verify_rewards.py`** — verify that sim reward values in a recorded dataset are sensible.
 
@@ -156,8 +156,8 @@ For SmolVLA BC training use `lerobot-train` directly (see [workflow/03_bc_traini
 
 ## Tests
 
-**`scripts/test/`** — functional tests that require Isaac Sim. Run these after making changes to envs or devices to catch regressions. See also `tests/` for unit tests that do not require Isaac Sim.
+**`tests/sim/`** — functional tests that require Isaac Sim. Run these after making changes to envs or devices to catch regressions. See also `tests/` for unit tests that do not require Isaac Sim.
 
-**`scripts/test_robot.py`** — interactive joint movement test for the real robot. Modes: `interactive` (manual), `preset` (fixed positions), `test` (automated sweep).
+**`tests/sim/test_robot.py`** — interactive joint movement test for the real robot. Modes: `interactive` (manual), `preset` (fixed positions), `test` (automated sweep).
 
 **`scripts/isaac_sim_standalone/test_robot.py`** — same test modes using pure Isaac Sim API (no Isaac Lab). Useful when Isaac Lab is not installed or for low-level debugging. Known limitation: robot spawns at world origin, not on table. See [isaac_sim_standalone.md](isaac_sim_standalone.md).

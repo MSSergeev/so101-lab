@@ -240,7 +240,7 @@ GPU metrics are logged automatically when `nvidia-ml-py` is installed.
 
 ```bash
 act-isaac  # activate Isaac Lab env
-python scripts/eval/test_env_spawn.py --gui --env figure_shape_placement_easy
+python tests/sim/test_env_spawn.py --gui --env figure_shape_placement_easy
 ```
 
 Isaac Sim window should open, robot should appear on the table, 10 resets with printed positions.
@@ -248,7 +248,7 @@ Isaac Sim window should open, robot should appear on the table, 10 resets with p
 ```bash
 # Verify real robot connection
 act-lerobot  # activate lerobot-env
-python scripts/test_robot.py
+python tests/sim/test_robot.py
 ```
 
 If something goes wrong: [docs/troubleshooting.md](../troubleshooting.md).

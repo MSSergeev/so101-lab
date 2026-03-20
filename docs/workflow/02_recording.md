@@ -29,7 +29,7 @@ Make sure the env spawn looks correct:
 
 ```bash
 act-isaac  # activate Isaac Lab env
-python scripts/eval/test_env_spawn.py --gui --env figure_shape_placement_easy --resets 20
+python tests/sim/test_env_spawn.py --gui --env figure_shape_placement_easy --resets 20
 ```
 
 Check that the cube appears in the expected zone and does not intersect the platform.

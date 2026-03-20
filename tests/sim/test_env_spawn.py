@@ -3,8 +3,8 @@
 Resets the env N times with GUI to visually inspect object placement.
 
 Usage:
-    python scripts/eval/test_env_spawn.py --gui --env figure_shape_placement_easy
-    python scripts/eval/test_env_spawn.py --gui --env figure_shape_placement --resets 20
+    python tests/sim/test_env_spawn.py --gui --env figure_shape_placement_easy
+    python tests/sim/test_env_spawn.py --gui --env figure_shape_placement --resets 20
 """
 
 import argparse

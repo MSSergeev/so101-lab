@@ -186,7 +186,7 @@ env.get_task_description()  # → "Place the cube into the matching slot on the 
 6. Register in `tasks/__init__.py`:
    - `get_task_registry()` — BC env
    - `_get_rl_task_registry()` — RL env
-7. Verify: `python scripts/eval/test_env_spawn.py --gui --env <new_task>`
+7. Verify: `python tests/sim/test_env_spawn.py --gui --env <new_task>`
 
 ## Lazy imports
 

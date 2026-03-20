@@ -37,7 +37,7 @@ Venv legend: `il` = Isaac Lab env, `lr` = lerobot-env, `rerun` = venvs/rerun, `v
 | `scripts/eval/sweep_diffusion_eval_single.py` | Sweep Diffusion checkpoints (single-env eval) | reference/train_diffusion.md | — | il |
 | `scripts/eval/sweep_vla_eval.py` | Sweep SmolVLA checkpoints; auto-starts/stops gRPC policy server | reference/eval_vla_policy.md | — | il |
 | `scripts/eval/collect_rollouts.py` | Collect IK rollouts with DR for offline dataset | reference/collect_rollouts.md | — | il |
-| `scripts/eval/test_env_spawn.py` | Visual spawn zone verification (N resets, prints positions) | reference/env_design.md | — | il |
+| `tests/sim/test_env_spawn.py` | Visual spawn zone verification (N resets, prints positions) | reference/env_design.md | — | il |
 | `scripts/eval/analyze_classifier_distribution.py` | Classifier confidence histogram diagnostic | (docstring) | — | lr |
 
 ### Training — BC / VLA
@@ -85,7 +85,7 @@ Venv legend: `il` = Isaac Lab env, `lr` = lerobot-env, `rerun` = venvs/rerun, `v
 | `scripts/tools/camera_viewer.py` | OpenCV preview of sim camera feed during recording | reference/viewer_tools.md | — | viewer |
 | `scripts/tools/eval_viewer.py` | OpenCV viewer for sim camera feed during eval | reference/viewer_tools.md | — | viewer |
 | `scripts/tools/hil_viewer.py` | Camera viewer for HIL teleoperation | reference/viewer_tools.md | — | viewer |
-| `scripts/tools/test_vip_reward.py` | Test VIP reward computation on a dataset | (docstring) | — | lr |
+| `tests/sim/test_vip_reward.py` | Test VIP reward computation on a dataset | (docstring) | — | lr |
 | `scripts/tools/verify_rewards.py` | Verify sim reward values in recorded dataset | (docstring) | — | il |
 | `scripts/tools/measure_x0_sensitivity.py` | Measure how x_0 shift affects SmolVLA action output | (docstring) | — | il |
 | `scripts/tools/trackio_cleanup.py` | Clean up old trackio experiment runs | (docstring) | — | lr |
@@ -115,12 +115,12 @@ Venv legend: `il` = Isaac Lab env, `lr` = lerobot-env, `rerun` = venvs/rerun, `v
 
 | Script | Description | Venv |
 |--------|-------------|------|
-| `scripts/test/test_template_env.py` | Verify template env loads and steps | il |
-| `scripts/test/test_pick_cube.py` | Verify pick_cube env | il |
-| `scripts/test/test_rl_gym_wrapper.py` | Verify gym wrapper (ManagerBasedRLEnv → Gymnasium) | il |
-| `scripts/test/test_contact_sensor.py` | Verify contact sensor in sim | il |
-| `scripts/test/inspect_template_env.py` | Print template env observation/action shapes | il |
-| `scripts/test_robot.py` | Interactive joint movement test for real robot (modes: interactive/preset/test/all) | il |
+| `tests/sim/test_template_env.py` | Verify template env loads and steps | il |
+| `tests/sim/test_pick_cube.py` | Verify pick_cube env | il |
+| `tests/sim/test_rl_gym_wrapper.py` | Verify gym wrapper (ManagerBasedRLEnv → Gymnasium) | il |
+| `tests/sim/test_contact_sensor.py` | Verify contact sensor in sim | il |
+| `tests/sim/inspect_template_env.py` | Print template env observation/action shapes | il |
+| `tests/sim/test_robot.py` | Interactive joint movement test for real robot (modes: interactive/preset/test/all) | il |
 
 ---
 

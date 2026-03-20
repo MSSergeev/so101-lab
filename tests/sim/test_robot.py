@@ -10,10 +10,10 @@ Modes:
 
 Usage:
     eval "$(./activate_isaaclab.sh)"
-    python scripts/test_robot.py --mode interactive
-    python scripts/test_robot.py --mode preset
-    python scripts/test_robot.py --mode test --headless
-    python scripts/test_robot.py --mode all
+    python tests/sim/test_robot.py --mode interactive
+    python tests/sim/test_robot.py --mode preset
+    python tests/sim/test_robot.py --mode test --headless
+    python tests/sim/test_robot.py --mode all
 
 Joint limits (from URDF):
     shoulder_pan:  [-3.14, 3.14] rad

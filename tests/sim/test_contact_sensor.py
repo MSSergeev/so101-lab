@@ -10,8 +10,8 @@ Uses Isaac Lab ContactSensorCfg (GPU tensor API).
 - force_matrix_w: per-filter forces (table=primitive works, mesh filters may not)
 
 Usage:
-    python scripts/test/test_contact_sensor.py
-    python scripts/test/test_contact_sensor.py --realtime
+    python tests/sim/test_contact_sensor.py
+    python tests/sim/test_contact_sensor.py --realtime
 """
 
 import argparse

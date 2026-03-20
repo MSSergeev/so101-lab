@@ -38,7 +38,7 @@ The easiest way to create a new task is to copy `figure_shape_placement/` and mo
 6. Register in `so101_lab/tasks/__init__.py`:
    - `get_task_registry()` — for teleop / BC eval
    - `_get_rl_task_registry()` — for RL training / VLA eval
-7. Verify: `python scripts/eval/test_env_spawn.py --gui --env <new_task>`
+7. Verify: `python tests/sim/test_env_spawn.py --gui --env <new_task>`
 
 ---
 
@@ -61,8 +61,8 @@ The easy variant narrows the spawn to a small rectangle in front of the robot. T
 ### Verifying spawn visually
 
 ```bash
-python scripts/eval/test_env_spawn.py --gui --env figure_shape_placement --resets 20
-python scripts/eval/test_env_spawn.py --gui --env figure_shape_placement_easy --resets 20
+python tests/sim/test_env_spawn.py --gui --env figure_shape_placement --resets 20
+python tests/sim/test_env_spawn.py --gui --env figure_shape_placement_easy --resets 20
 ```
 
 The script runs N resets, prints object positions, and holds the GUI open. Check:

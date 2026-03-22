@@ -351,16 +351,16 @@ Key findings:
 
 ## Summary: online RL on medium task (figure_shape_placement, 4× spawn area)
 
-BC baseline: **22%** (600 ep, no DR). IQL: **32%**.
+> **2026-03-22:** Results corrected after fixing gRPC eval bug ([`7cdae2d`](https://github.com/MSSergeev/so101-lab/commit/7cdae2d)) — task string was not passed to SmolVLA. Previous results: BC 22%, IQL 32%, PPO 24%.
+
+BC baseline: **45%** (600 ep, no DR). IQL: **48%**.
 
 | Method | SR | vs BC | Notes |
 |--------|----|-------|-------|
-| BC + learned sampler | 20% | −2 p.p. | sampler has no effect on medium task |
-| BC + sampler + PPO v1 (100 updates) | 23% | +1 p.p. | with DR, v_loss unstable (IQL scale mismatch) |
-| BC + sampler + PPO v2 (600 updates) | 24% | +2 p.p. | no IQL warm start, normalize-rewards; z-test p=0.60 on 600 ep, **not significant** |
+| BC + Learned Sampler | ~~20%~~ | — | Invalidated (gRPC task bug), not re-evaluated |
+| BC + sampler + PPO v2 (600 updates) | 30% | −15 p.p. | Trained with DR, eval without DR — see note |
 
 Key findings:
-- **PPO shows consistent direction but small effect** — PPO > BC in every run across all seeds (+1–8 p.p.), but z-test p=0.60 on 600 ep (not significant). Likely real but weak improvement; ~2500 ep needed to confirm statistically
-- **IQL is the best method** — +10 p.p. over BC, consistent with easy task trend
-- **Why PPO fails here but not on easy task:** BC baseline too low (22% vs 70%); episodes too long (~400 steps vs ~150); single-env rollout (256 steps < 1 episode) gives poor GAE estimates; VIP reward harder to assign credit on longer horizons
+- **IQL is faster, not clearly better on SR** — IQL 48% vs BC 45% is not statistically significant (z=1.04, p≈0.30), but IQL solves episodes significantly faster (278 vs 300 steps, p<0.001). IQL was also consistently slightly ahead across prior evaluations.
+- **PPO below BC on no-DR eval** — PPO was trained with domain randomization enabled, while eval ran without DR. The policy may perform better under DR conditions. This needs testing.
 - **IQL warm start mismatch:** using IQL checkpoint with `--vip-use-labeled` PPO causes v_loss=32k+ (scale conflict). Fix: omit `--iql-checkpoint` and use `--normalize-rewards --warmup-value 30`

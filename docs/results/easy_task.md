@@ -106,5 +106,5 @@ For comparison: IQL pipeline (VIP labeling + critics + weighted BC) = ~3.5 h →
 
 1. **PPO with `--normalize-rewards --warmup-value`** — would a converged value head allow training past update_50?
 2. **PPO on top of IQL with normalize/warmup** — if v_loss converges, can IQL + PPO exceed 90%?
-3. **Harder task** — tested on medium task (4× spawn area, 300 episodes). Results: BC 22%, IQL 32%, PPO 24% (consistent direction, not significant). See [medium_task.md](medium_task.md).
+3. **Harder task** — tested on medium task (4× spawn area, 300 episodes). Results: BC 45%, IQL 48% (faster execution, SR difference not significant), PPO 30% (trained with DR, eval without). See [medium_task.md](medium_task.md).
 4. **#8→9b** (sampler re-trained on IQL checkpoint, not BC) — not tested.

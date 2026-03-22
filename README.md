@@ -11,6 +11,14 @@
 
 ---
 
+## Changelog
+
+### 2026-03-22 — Medium task results corrected
+
+The gRPC eval architecture (separate Python 3.11/3.12 processes for Isaac Sim and LeRobot) had a bug in `smolvla_server.py`: the task language instruction was not passed to SmolVLA — the model received an empty string instead of the actual task description. All SmolVLA-based medium task results have been re-evaluated with the fix ([`7cdae2d`](https://github.com/MSSergeev/so101-lab/commit/7cdae2d)). Easy task results were collected before the gRPC migration and are unaffected.
+
+---
+
 ## Capabilities
 
 - **LeRobot dataset from Isaac Sim** — record teleoperated demonstrations in simulation, save as LeRobot v3.0 format (parquet + H.264 video)
@@ -31,13 +39,13 @@
 
 Same scene, same seed — three methods compared side-by-side:
 
-![Eval comparison: BC (fail), PPO (success), IQL (success)](docs/media/eval_comparison.gif)
+![Eval comparison: BC (fail), PPO (fail), IQL (success)](docs/media/eval_comparison.gif)
 
-| SmolVLA BC | SmolVLA + Flow-Noise PPO | SmolVLA + IQL |
+| SmolVLA BC | SmolVLA + PPO | SmolVLA + IQL |
 |:---:|:---:|:---:|
-| fail | success | success |
+| fail | fail | success |
 
-<sub>Medium spawn zone, relaxed success thresholds (9 cm / 30°).</sub>
+<sub>Medium spawn zone, episode seed 383735588, no domain randomization.</sub>
 
 <details>
 <summary>Teleoperation (leader arm → sim)</summary>
@@ -70,11 +78,11 @@ Same scene, same seed — three methods compared side-by-side:
 
 | Method | Success rate | vs BC |
 |--------|:-----------:|:-----:|
-| SmolVLA BC | 22% | — |
-| SmolVLA + PPO | 24% | +2% |
-| SmolVLA + IQL weighted BC | **32%** | **+10%** |
+| SmolVLA BC | 45% | — |
+| SmolVLA + IQL weighted BC | **48%** | +3% |
+| SmolVLA + PPO | 30% | −15% |
 
-<sub>50 eval episodes (easy) / 100 episodes (medium), shared seed. Details: [easy task](docs/results/easy_task.md) · [medium task](docs/results/medium_task.md)</sub>
+<sub>50 eval episodes (easy) / 600 episodes (medium), shared seed. Details: [easy task](docs/results/easy_task.md) · [medium task](docs/results/medium_task.md)</sub>
 
 ---
 

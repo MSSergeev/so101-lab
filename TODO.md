@@ -38,9 +38,9 @@ Two approaches to explore (simplest first):
 
 ---
 
-## 4. Re-evaluate medium task results
+## ~~4. Re-evaluate medium task results~~ (done 2026-03-22)
 
-Medium task results in `docs/results/medium_task.md` (BC 22%, IQL 32%, PPO 24%) were collected via `eval_vla_policy.py` with a bug in `smolvla_server.py`: the `task` language instruction was not passed to the model (empty string instead of "Place the cube into the matching slot on the platform"). Fixed in commit TBD. Results need to be re-run with the fix.
+~~Medium task results in `docs/results/medium_task.md` (BC 22%, IQL 32%, PPO 24%) were collected with a bug in `smolvla_server.py`.~~ Fixed in [`7cdae2d`](https://github.com/MSSergeev/so101-lab/commit/7cdae2d). Re-evaluated: BC 45%, IQL 48%, PPO 30%. Results and docs updated.
 
 ---
 

@@ -163,7 +163,7 @@ IQL pipeline: label dataset with VIP dense rewards → train V/Q critics → com
 | **006000** | **32%** | 414 | 600 |
 | 008000 | 28% | 375 | 600 |
 
-- IQL best 32% vs BC best 21% — +11 p.p., consistent with easy task trend (+12-16%). CIs overlap slightly (95% CI: ±9%), trend clear but not statistically significant at α=0.05 on 100 episodes.
+- ~~IQL best 32% vs BC best 21% — +11 p.p.~~ **Corrected 2026-03-22:** these results were collected with gRPC eval bug (empty task string, [`7cdae2d`](https://github.com/MSSergeev/so101-lab/commit/7cdae2d)). Re-eval (600 ep, seed 7382910, n-action-steps=15): IQL 48% vs BC 45%. SR difference not significant (z=1.04), but IQL significantly faster (278 vs 300 steps, p<0.001).
 
 ### Issues found
 
@@ -330,15 +330,17 @@ Two pipelines, in order:
 
 ## Results summary
 
+> **2026-03-22:** SmolVLA results corrected after fixing gRPC eval bug ([`7cdae2d`](https://github.com/MSSergeev/so101-lab/commit/7cdae2d)). Previous results shown as ~~strikethrough~~.
+
 | Method | SR | vs easy task | Notes |
 |--------|----|--------------|-------|
 | ACT (best ckpt) | 23% | 60% → 23% | temporal ensemble, chunk=15, thresholds 5cm/15° |
 | Diffusion (latest) | 5% | 0% → 5% | 1/20, only latest checkpoint; rest 0% |
-| SmolVLA BC (040000) | 21% | 70% → 21% | relaxed thresholds 9cm/30°, n-action-steps=50 |
-| SmolVLA BC + sampler | 20% | 80% → 20% | noise-dims=32, no improvement over BC |
-| SmolVLA BC + sampler + PPO v1 (update_50) | 23% | 90% → 23% | with DR, value head unstable (v_loss 486–50k) |
-| SmolVLA BC + sampler + PPO v2 (000320) | 24% | 90% → 24% | no DR, 600 ep, z-test p=0.60, not significant |
-| SmolVLA IQL (006000) | 32% | 86% → 32% | +11 p.p. vs BC, CIs overlap slightly |
+| SmolVLA BC (040000) | **45%** ~~21%~~ | 70% → 45% | 600 ep, seed 7382910, n-action-steps=15 |
+| SmolVLA BC + sampler | ~~20%~~ | — | Invalidated (gRPC task bug), not re-evaluated |
+| SmolVLA BC + sampler + PPO v1 (update_50) | ~~23%~~ | — | Invalidated (gRPC task bug), not re-evaluated |
+| SmolVLA BC + sampler + PPO v2 (000320) | **30%** ~~24%~~ | 90% → 30% | trained with DR, eval without DR |
+| SmolVLA IQL (006000) | **48%** ~~32%~~ | 86% → 48% | SR not significant vs BC, but 22 steps faster (p<0.001) |
 
 ---
 
@@ -358,7 +360,6 @@ Two pipelines, in order:
 - ~~**Sweep 0% SR (ACT and Diffusion):** both give 0% with `--num-envs 20` sweep~~ — fixed: stale camera after auto-reset corrupted temporal ensembler buffer (`a865f26`).
 - **ACT 23% on medium vs 60% on easy:** expected drop with 4× spawn area. More data or RL fine-tuning may help.
 - **IQL from scratch vs fine-tune:** current IQL pipeline fine-tunes an existing BC checkpoint (40k steps) for 10k more steps with advantage-weighted loss. Both BC and IQL train the same 403M params (VLM + action expert). Hypothesis: training from scratch with IQL weights for the full 45k steps may match or exceed the two-stage pipeline — the advantage signal could help from the start, avoiding learning bad habits that need unlearning. Not tested.
-- **IQL gain vs extra training:** BC baseline = 45k steps, IQL = 45k + 10k. Is the +11 p.p. from advantage weighting or just more training? Control: plain BC for 55k steps (not run).
-- **Noise sampler with noise-dims=1600:** current sampler (32 dims, token 0 only) had no effect on medium task (20% = BC baseline). Full x_0 control (1600 dims) may help — more expressiveness, but ~5.3M params and longer training. Not tested.
-- **Noise sampler on IQL checkpoint:** sampler trained on BC velocity field didn't help. Training on IQL velocity field (006000) might behave differently since IQL has a different action distribution. Low priority — if 32-dim sampler can't help BC, unlikely to help IQL.
-- **PPO not converging on medium task:** 600 updates, reward flat (-16...-22), ratio ~1.0, SR +1-3 p.p. over BC (not significant). Possible causes: (1) VIP reward too sparse/noisy for credit assignment over 400-step episodes (vs ~150-step easy task); (2) single-env rollout (256 steps < 1 episode) gives poor GAE estimates — need 8-16 parallel envs; (3) BC baseline too low (22%) — PPO has less signal to work with than easy task (70%). On easy task same setup gave +20 p.p.
+- **IQL gain vs extra training:** BC baseline = 45k steps, IQL = 45k + 10k. Is the +3 p.p. SR from advantage weighting or just more training? Control: plain BC for 55k steps (not run). Note: IQL is significantly faster (278 vs 300 steps, p<0.001) regardless.
+- **Noise sampler re-eval:** #9b invalidated by gRPC task bug, not re-evaluated. Low priority.
+- **PPO with DR eval:** PPO v2 was trained with domain randomization, evaluated without DR (30% vs BC 45%). Need to eval with DR to test whether the gap is due to train/eval mismatch.

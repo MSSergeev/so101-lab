@@ -21,6 +21,8 @@
 - **Sim-to-real pipeline** — calibrated cameras, domain randomization (light, physics, camera noise, distractors)
 - **Ready-made scene assets** — children's shape sorting game (cube, star, hexagon, cylinder, etc.) as USD props for Isaac Sim pick-and-place tasks
 
+**Want to try it right away?** Download a [demo dataset + trained checkpoint](docs/workflow/00a_try_demo.md) and run eval in minutes.
+
 **Want to record a task in Isaac Sim and train a policy?** Follow the [step-by-step workflow](docs/workflow/).
 
 ---

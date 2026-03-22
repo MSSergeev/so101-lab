@@ -5,6 +5,7 @@ Step-by-step guides for the full pipeline: from setting up the environment to tr
 | Step | Guide | Description |
 |------|-------|-------------|
 | 0 | [Setup](00_setup.md) | Install Isaac Lab, LeRobot, configure venvs and `.env` |
+| 0a | [Try demo](00a_try_demo.md) | Download demo datasets + checkpoint, visualize, eval, train |
 | 1 | [Environment design](01_env_design.md) | Create or modify a task environment in Isaac Lab |
 | 2 | [Recording](02_recording.md) | Record teleoperated episodes as LeRobot datasets |
 | 3 | [BC training](03_bc_training.md) | Train ACT, Diffusion Policy, or SmolVLA via behavior cloning |

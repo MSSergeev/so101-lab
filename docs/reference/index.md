@@ -65,6 +65,12 @@ Venv legend: `il` = Isaac Lab env, `lr` = lerobot-env, `rerun` = venvs/rerun, `v
 | `scripts/train/train_noise_sampler_offline.py` | Train Learned Noise Sampler offline (backprop through ODE) | reference/train_noise_sampler.md | — | lr |
 | `scripts/train/train_noise_sampler_online.py` | Train Learned Noise Sampler online (REINFORCE in sim) | reference/train_noise_sampler.md | — | il |
 
+### Tools — demo assets
+
+| Script | Description | Doc | Test | Venv |
+|--------|-------------|-----|------|------|
+| `scripts/tools/download_demo.py` | Download demo datasets and checkpoints from Hugging Face | (docstring) | — | lr |
+
 ### Tools — dataset utilities
 
 | Script | Description | Doc | Test | Venv |

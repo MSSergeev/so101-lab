@@ -152,6 +152,10 @@ python -m grpc_tools.protoc \
 
 Requires `grpcio-tools` (`uv pip install grpcio-tools`).
 
+## Known limitation: single task per session
+
+The PPO server receives the `task` string once at initialization (`Init` RPC) and bakes it into `FlowNoiseSmolVLA`. All episodes use the same language instruction. For multi-task training (different instructions per episode), the server would need to accept `task` per `SampleAction` call and re-tokenize the language input.
+
 ## Differences from single-process version
 
 | Aspect | `train_flow_noise_ppo.py` | `train_flow_noise_ppo_grpc.py` |

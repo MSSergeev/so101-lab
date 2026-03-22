@@ -116,7 +116,7 @@ act-lerobot
 python scripts/eval/smolvla_server.py --host 127.0.0.1 --port 8080
 ```
 
-Server waits for `SendPolicyInstructions` (checkpoint path, policy type, task, device) before loading the model. Loading happens once per `connect()` call — sweep reloads the model for each checkpoint.
+Server waits for `SendPolicyInstructions` (checkpoint path, policy type, task, device) before loading the model. The `task` string is stored on the server and injected into every inference batch — it is **not** sent per-observation from the client. Loading happens once per `connect()` call — sweep reloads the model for each checkpoint.
 
 ---
 

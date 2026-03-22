@@ -51,8 +51,8 @@ class SimPolicyServer(services_pb2_grpc.AsyncInferenceServicer):
         self.policy_type = specs.get("policy_type", "smolvla")
         self.actions_per_chunk = specs.get("actions_per_chunk", 15)
         self.device = specs.get("device", "cuda")
-        task = specs.get("task", "")
-        logger.info(f"Loading {self.policy_type} from {self.checkpoint} on {self.device}")
+        self.task = specs.get("task", "")
+        logger.info(f"Loading {self.policy_type} from {self.checkpoint} on {self.device}, task='{self.task}'")
 
         # Register processor module
         if self.policy_type == "smolvla":
@@ -106,7 +106,7 @@ class SimPolicyServer(services_pb2_grpc.AsyncInferenceServicer):
         # Build batch in lerobot format
         batch = {
             "observation.state": torch.from_numpy(obs_dict["observation.state"]).float(),
-            "task": obs_dict.get("task", ""),
+            "task": self.task,
         }
         for key in ("observation.images.top", "observation.images.wrist"):
             if key in obs_dict:
